@@ -2,7 +2,7 @@ version: "3"
 services:
 
   http:
-    image: {image_name}
+    image: {image_name}:fixed_version
     container_name: {container_name}_http
     restart: unless-stopped
     volumes:
@@ -14,9 +14,14 @@ services:
     env_file:
       - .env
       - .env.local
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "10"
 
   database:
-    image: {image_name}
+    image: {image_name}:fixed_version
     container_name: ${APP_NAME}_mysql
     restart: unless-stopped
     volumes:
@@ -24,3 +29,8 @@ services:
     env_file:
       - .env
       - .env.local
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "10"
