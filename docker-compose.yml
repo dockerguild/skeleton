@@ -1,0 +1,26 @@
+version: "3"
+services:
+
+  http:
+    image: {image_name}
+    container_name: {container_name}_http
+    restart: unless-stopped
+    volumes:
+      - ./data/http:{container_path}
+    ports:
+      - 127.0.0.1:${APP_PORT}:{container_port}
+    depends_on:
+      - database
+    env_file:
+      - .env
+      - .env.local
+
+  database:
+    image: {image_name}
+    container_name: ${APP_NAME}_mysql
+    restart: unless-stopped
+    volumes:
+      - ./data/mysql:{container_path}
+    env_file:
+      - .env
+      - .env.local

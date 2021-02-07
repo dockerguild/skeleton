@@ -1,0 +1,7 @@
+.PHONY: filesystem/backup filesystem/restore
+
+filesystem/dump:
+	tar -zcvf ./backup/http.tar.gz data/http
+
+filesystem/restore:
+	tar -zxvf ./backup/http.tar.gz

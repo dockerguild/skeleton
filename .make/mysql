@@ -1,0 +1,10 @@
+DOCKER_MYSQL := "$(APP_NAME)_mysql"
+
+.PHONY: mysql/dump mysql/restore
+
+mysql/dump:
+	docker exec $(DOCKER_MYSQL) bash -c '/usr/bin/mysqldump -u$(MYSQL_USER) -p"$(MYSQL_PASSWORD)" "$(MYSQL_DATABASE)" > "/tmp/$(MYSQL_DATABASE).sql"'
+	docker exec $(DOCKER_MYSQL) cat "/tmp/$(MYSQL_DATABASE).sql" > "./backup/$(MYSQL_DATABASE).sql"
+
+mysql/restore:
+	cat "./backup/$(MYSQL_DATABASE).sql" | docker exec -i $(DOCKER_MYSQL) /usr/bin/mysql -u$(MYSQL_USER) -p"$(MYSQL_PASSWORD)" "$(MYSQL_DATABASE)"
