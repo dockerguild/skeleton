@@ -17,6 +17,12 @@ Edit vhost `config/nginx/proxy.conf` and register it to nginx
     ln -s "${PWD}/config/nginx/proxy.conf" /etc/nginx/sites-enabled/myapp.conf
     service restart nginx
 
+## Configure crontab
+
+Edit vhost `config/crontab/crontab` and register it to crontab
+
+    ln -s "${PWD}/config/crontab/crontab" "/etc/cron.d/myapp"
+
 ## Usage
 
 Start containers
