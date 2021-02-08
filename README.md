@@ -56,3 +56,9 @@ Restore containers files
 Restore mysql database
 
     make mysql/restore
+
+## Crontab
+
+For crontab usage
+
+    bash /path_to_project/bin/console.sh dump

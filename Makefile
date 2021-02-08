@@ -30,3 +30,7 @@ restart:
 
 down:
 	make docker/down
+
+dump:
+	make filesystem/dump
+	make mysql/dump
