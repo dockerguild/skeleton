@@ -2,6 +2,7 @@
 
 filesystem/dump:
 	tar -zcvf ./backup/http.tar.gz data/http
+	cp ./backup/http.tar.gz "./backup/http_`date +%H`.tar.gz"
 
 filesystem/restore:
 	tar -zxvf ./backup/http.tar.gz

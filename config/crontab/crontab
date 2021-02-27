@@ -1,1 +1,1 @@
-0	5	*	*	*	root	bash /home/www/myapp.test/www/bin/console.sh dump >/dev/null 2>&1
+0	*	*	*	*	root	bash /home/www/myapp.test/www/bin/console.sh dump >/dev/null 2>&1
