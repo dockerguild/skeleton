@@ -2,13 +2,13 @@ version: "3"
 services:
 
   http:
-    image: {image_name}:fixed_version
-    container_name: {container_name}_http
+    image: <IMAGE_NAME>:<IMAGE_VERSION>
+    container_name: ${APP_NAME}_http
     restart: unless-stopped
     volumes:
-      - ./data/http:{container_path}
+      - ./data/http:<CONTAINER_DATA_PATH>
     ports:
-      - 127.0.0.1:${APP_PORT}:{container_port}
+      - 127.0.0.1:${APP_PORT}:<CONTAINER_PORT>
     depends_on:
       - database
     env_file:
@@ -21,11 +21,11 @@ services:
         max-file: "10"
 
   database:
-    image: {image_name}:fixed_version
+    image: <IMAGE_NAME>:<IMAGE_VERSION>
     container_name: ${APP_NAME}_mysql
     restart: unless-stopped
     volumes:
-      - ./data/mysql:{container_path}
+      - ./data/mysql:<CONTAINER_DATA_PATH>
     env_file:
       - .env
       - .env.local
