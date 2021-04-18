@@ -24,14 +24,14 @@ Requirement : Nginx
 
 Edit vhost `config/nginx/proxy.conf` and register it to nginx
 
-    ln -s "${PWD}/config/nginx/proxy.conf" /etc/nginx/sites-enabled/<MY_APP_NAME>.conf
+    cp "${PWD}/config/nginx/proxy.conf" /etc/nginx/sites-enabled/<MY_APP_NAME>.conf
     service nginx restart
 
 ## Configure crontab
 
 Edit vhost `config/crontab/crontab` and register it to crontab
 
-    ln -s "${PWD}/config/crontab/crontab" "/etc/cron.d/<MY_APP_NAME>"
+    cp "${PWD}/config/crontab/crontab" /etc/cron.d/<MY_APP_NAME>
 
 ## Usage
 

@@ -4,6 +4,8 @@
 -include .env.$(APP_ENV).local
 export
 
+CONTAINER_APP := app
+CONTAINER_DATABASE := database
 COMPOSE_PROJECT_NAME := "$(APP_NAME)_$(APP_INSTANCE)"
 SUDO := $(shell sh -c "if [ 0 != $EUID ]; then echo 'sudo'; fi")
 KERNEL := $(shell sh -c "uname")

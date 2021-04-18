@@ -1,12 +1,12 @@
 version: "3"
 services:
 
-  http:
+  app:
     image: <IMAGE_NAME>:<IMAGE_VERSION>
-    container_name: ${APP_NAME}_http
+    container_name: ${APP_NAME}_app
     restart: unless-stopped
     volumes:
-      - ./data/http:<CONTAINER_DATA_PATH>
+      - ./data/app:<CONTAINER_DATA_PATH>
     ports:
       - 127.0.0.1:${APP_PORT}:<CONTAINER_PORT>
     depends_on:
@@ -22,10 +22,10 @@ services:
 
   database:
     image: <IMAGE_NAME>:<IMAGE_VERSION>
-    container_name: ${APP_NAME}_mysql
+    container_name: ${APP_NAME}_database
     restart: unless-stopped
     volumes:
-      - ./data/mysql:<CONTAINER_DATA_PATH>
+      - ./data/database:<CONTAINER_DATA_PATH>
     env_file:
       - .env
       - .env.local
