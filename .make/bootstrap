@@ -1,0 +1,94 @@
+-include .env
+-include .env.local
+-include .env.$(APP_ENV)
+-include .env.$(APP_ENV).local
+export
+
+COMPOSE_PROJECT_NAME := "$(APP_NAME)_$(APP_INSTANCE)"
+SUDO := $(shell sh -c "if [ 0 != $EUID ]; then echo 'sudo'; fi")
+KERNEL := $(shell sh -c "uname")
+
+-include ./.make/docker
+-include ./.make/filesystem
+-include ./.make/git
+-include ./.make/mysql
+
+## ----------------------------------------------------------
+## Main
+## ----------------------------------------------------------
+.PHONY: install update update-force start start-build restart restart-force stop down dump
+
+_dockerinstall:
+	docker-compose build
+
+_composerinstall:
+ifeq ($(APP_ENV),prod)
+	docker-compose run --rm --no-deps -u $(APP_UID) $(CONTAINER_PHP) php -d memory_limit=-1 /usr/bin/composer --no-dev --optimize-autoloader -v install
+else
+	docker-compose run --rm --no-deps -u $(APP_UID) $(CONTAINER_PHP) php -d memory_limit=-1 /usr/bin/composer -v install
+endif
+
+install:
+ifneq ($(APP_NAME),__dwsmyapp__)
+	make _preinstall
+	make _dockerinstall
+	make _composerinstall
+	make setup/server
+	make docker/start && echo "Waiting MySQL..." && sleep 20
+	make composer/install
+	make app/install
+	make filesystem/install
+	make listening
+	make _postinstall
+endif
+
+update:
+	make _preupdate
+	make docker/stop
+	make git/update
+	make docker/start
+	make composer/install
+	make app/update
+	make crontab/copy
+	make proxy/copy
+	make filesystem/install
+	make listening
+	make _postupdate
+
+update-force:
+	make _preupdate
+	make docker/down
+	make git/update
+	make docker/start-build
+	make composer/install
+	make app/update
+	make proxy/restart
+	make filesystem/install
+	make listening
+	make _postupdate
+
+start:
+	make docker/start
+	make listening
+
+start-build:
+	make docker/start-build
+	make listening
+
+restart:
+	make docker/restart
+	make listening
+
+restart-force:
+	make docker/restart-force
+	make listening
+
+stop:
+	make docker/stop
+
+down:
+	make docker/down
+
+dump:
+	make mysql/dump
+	make filesystem/dump
