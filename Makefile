@@ -4,9 +4,14 @@
 -include .env.$(APP_ENV).local
 export
 
+COMPOSE_PROJECT_NAME := "$(APP_NAME)_$(APP_INSTANCE)"
+
 CONTAINER_APP := app
 CONTAINER_DATABASE := database
-COMPOSE_PROJECT_NAME := "$(APP_NAME)_$(APP_INSTANCE)"
+
+DOCKER_APP := "$(APP_NAME)_$(CONTAINER_APP)_$(APP_INSTANCE)"
+DOCKER_DATABASE := "$(APP_NAME)_$(CONTAINER_DATABASE)_$(APP_INSTANCE)"
+
 SUDO := $(shell sh -c "if [ 0 != $EUID ]; then echo 'sudo'; fi")
 KERNEL := $(shell sh -c "uname")
 
@@ -22,6 +27,9 @@ KERNEL := $(shell sh -c "uname")
 
 install:
 	make docker/start
+	$(SUDO) cp "$(PWD)/config/crontab/crontab" "/etc/cron.d/<MY_APP_NAME>.conf"
+	$(SUDO) cp "$(PWD)/config/nginx/proxy.conf" "/etc/nginx/sites-enabled/<MY_APP_NAME>.conf"
+	$(SUDO) service nginx restart
 
 update:
 	make docker/down

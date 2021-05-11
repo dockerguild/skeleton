@@ -10,7 +10,7 @@
     <CONTAINER_DATA_PATH>   # Docker container data path
     <CONTAINER_PORT>        # Docker container port
 
-## Installation
+## Create new project
 
     git clone git@github.com:dockerguild/skeleton.git <MY_APP_NAME>
     cd <MY_APP_NAME>
@@ -18,20 +18,9 @@
     git init
     git remote add origin <MY_REPOSITORY>
 
-## Configure proxy
+## Installation
 
-Requirement : Nginx
-
-Edit vhost `config/nginx/proxy.conf` and register it to nginx
-
-    cp "${PWD}/config/nginx/proxy.conf" /etc/nginx/sites-enabled/<MY_APP_NAME>.conf
-    service nginx restart
-
-## Configure crontab
-
-Edit vhost `config/crontab/crontab` and register it to crontab
-
-    cp "${PWD}/config/crontab/crontab" /etc/cron.d/<MY_APP_NAME>
+    make install
 
 ## Usage
 

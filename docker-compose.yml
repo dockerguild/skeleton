@@ -3,12 +3,12 @@ services:
 
   app:
     image: <IMAGE_NAME>:<IMAGE_VERSION>
-    container_name: ${APP_NAME}_app
+    container_name: ${APP_NAME}_app_${APP_INSTANCE}
     restart: unless-stopped
     volumes:
       - ./data/app:<CONTAINER_DATA_PATH>
     ports:
-      - 127.0.0.1:${APP_PORT}:<CONTAINER_PORT>
+      - 127.0.0.1:8080:<CONTAINER_PORT>
     depends_on:
       - database
     env_file:
@@ -22,7 +22,7 @@ services:
 
   database:
     image: <IMAGE_NAME>:<IMAGE_VERSION>
-    container_name: ${APP_NAME}_database
+    container_name: ${APP_NAME}_database_${APP_INSTANCE}
     restart: unless-stopped
     volumes:
       - ./data/database:<CONTAINER_DATA_PATH>
