@@ -1,22 +1,10 @@
 # Docker containers skeleton
 
-## Search and replace
+Starter kit, fork me for use.
 
-    <MY_APP_NAME>           # Name of your application
-    <MY_REPOSITORY>         # URL of your GIT repository
-    <MY_PROJECT_PATH>       # Path of your application
-    <IMAGE_NAME>            # Docker image name
-    <IMAGE_VERSION>         # Docker image version
-    <CONTAINER_DATA_PATH>   # Docker container data path
-    <CONTAINER_PORT>        # Docker container port
+## Requirements
 
-## Create new project
-
-    git clone git@github.com:dockerguild/skeleton.git <MY_APP_NAME>
-    cd <MY_APP_NAME>
-    rm -fr .git
-    git init
-    git remote add origin <MY_REPOSITORY>
+ - Nginx
 
 ## Installation
 
